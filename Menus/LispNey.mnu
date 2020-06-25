@@ -1,0 +1,63 @@
+***MENUGROUP=LISPNEY
+***POP18
+**LISPNEY
+			[&LispNey]
+			[->Calculo de Areas]
+			[Comando Principal para Calcular]^c^careas
+			[--]
+			[Selecionar duas cotas para calcular]^c^cduas_cotas
+			[Clicar em um ponto interno do ambiente para calcular]^c^cpegaponto
+			[Selecionar uma polyline para calcular]^c^cseleciona_poly
+			[<-Criar uma polyline para calcular]^c^ccriap
+			[--]
+			[->Esquadrias]
+			[Porta]^c^cpt
+			[Porta de Correr]^c^cpcorrer
+			[Porta de Enrrolar]^c^cpenrrolar
+			[Abrir vao na parede]^c^cvao
+			[<-Janela]^c^cjanela
+			[--]
+			[->Corte]
+			[Desenhar Corte]^c^ccorte
+			[--]
+			[Detalhes do Corte]^c^ccorte;d;
+			[Porta em Corte]^c^ccorte;d;p;
+			[Janela em Corte]^c^ccorte;d;j;
+			[Linha de detalhe em Corte]^c^ccorte;d;l;
+			[<-Telhado em Corte]^c^ccorte;d;t;
+			[--]
+			
+			[Configuracoes LispNey]^c^cconfiglispney
+			
+			
+			
+***TOOLBARS
+**LISPNEY
+ID_LISPNEY_0		[_Toolbar("LispNey", _Top, _show, 0, 2, 1]
+ID_212				[_Flyout("Areas", "ICON_16_BLANK", "ICON_16_BLANK", _OtherIcon, LISPNEY.AREAS)]
+					[--]
+ID_213				[_Flyout("Esquadrias", "ICON_16_BLANK", "ICON_16_BLANK", _OtherIcon, LISPNEY.ESQUADRIAS)]
+					[--]
+ID_214				[_Flyout("Cortes", "ICON_16_BLANK", "ICON_16_BLANK", _OtherIcon, LISPNEY.CORTE)]
+
+**AREAS
+ID_Areas_0			[_Toolbar("Areas", _Floating, _show, 570, 145,1]
+ID_1				[_Button("Calcular Areas Comando Principal", "Icones/Areas.bmp", "ICON_16_BLANK")]^c^careas
+ID_2				[_Button("Calcular areas selecionado Cotas", "Icones/Area_Cota.bmp", "ICON_16_BLANK")]^c^careas;c;
+ID_3				[_Button("Calcular Areas Clicando em um Ponto", "Icones/Area_Ponto.bmp", "ICON_16_BLANK")]^c^cpegaponto
+ID_4				[_Button("Calcular Areas selecionando Objeto", "Icones/Area_Objeto.bmp", "ICON_16_BLANK")]^c^careas;o;
+ID_5				[_Button("Calcular Criar Polyline", "Icones/Area_Polyline.bmp", "ICON_16_BLANK")]^c^careas;p;
+
+**ESQUADRIAS
+ID_Esquadrias_0		[_Toolbar("Esquadrias", _Floating, _show, 350, 200,1]
+ID_Esquadria_1				[_Button("Porta", "Icones/Esquadrias_Porta.bmp", "ICON_16_BLANK")]^c^cpt
+ID_Esquadria_2				[_Button("Janela", "Icones/Esquadrias_Janela.bmp", "ICON_16_BLANK")]^c^cjanela
+ID_Esquadria_3				[_Button("Porta de Enrrolar", "Icones/Esquadrias_PEnrrolar.bmp", "ICON_16_BLANK")]^c^cpenrrolar			
+ID_Esquadria_4				[_Button("Porta de Correr", "Icones/Esquadrias_PCorrer.bmp", "ICON_16_BLANK")]^c^cpcorrer
+ID_Esquadria_5				[_Button("Vao na Parede", "Icones/Esquadrias_Vao.bmp", "ICON_16_BLANK")]^c^cvao
+
+**CORTE
+ID_Corte_0		[_Toolbar("Cortes", _Floating, _show, 450, 150,1]
+ID_Corte_1			[_Button("Desenhar Cortes", "Icones/Corte_Corte.bmp", "ICON_16_BLANK")]^c^ccorte
+ID_Corte_2			[_Button("Detalhes do Corte", "Icones/Corte_Detalhes.bmp", "ICON_16_BLANK")]^c^ccorte;d;
+ID_Corte_3			[_Button("Detalhes do Corte", "Icones/Corte_Detalhes.bmp", "ICON_16_BLANK")]^c^ccorte;d;

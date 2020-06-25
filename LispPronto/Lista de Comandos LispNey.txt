@@ -1,0 +1,30 @@
+Resumo dos principais comandos da Rotina LispNey
+
+Lista de Comandos das Rotinas LispNey
+
+
+Digite na linha de comandos do AutoCAD
+
+Comando:
+
+Arquitetônico
+
+Planta Baixa
+	osr			Configura o Osnap na opção 567
+	pt 			Porta de Abrir em Planta Baixa
+	ptconfig		Configurações do Comando Porta
+	janela			Janela em planta baixa
+	pcorrer			Porta de Correr planta baixa
+	penrrolar		Porta de Enrrolar Comercial Planta Baixa
+	areas			Comando para calcular areas em planta baixa
+	l_arquitetonico		Cria as Layers padrão para arquitetonico
+	flor1			Bloco de vegetação
+	flor2			Bloco de Vegetação
+	car			Bloco de Carimbos / Selos padrão
+	nomeambiente		Bloco com nome dos ambientes
+	nomedesenho		Bloco do titulo de desenhos
+	norte			bloco seta indicação do norte
+
+Cortes
+	corte			Auxiliar para gerar cortes apartir da planta baixa
+	nivelcorte		Bloco para cotar nivel em corte

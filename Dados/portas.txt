@@ -1,0 +1,10 @@
+Porta de Abrir Madeira
+0.10
+0.80
+2.10
+1
+1
+0
+1
+arco_portas
+1
