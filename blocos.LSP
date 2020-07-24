@@ -1383,8 +1383,14 @@
   (crl "025" 2) 
   (setvar "clayer" "025")
   (setvar "osmode" 0)
-  (setq SELOBJETO (entsel)) (if (NULL selOBJETO) (while (NULL SELOBJETO)(princ "\nObjeto Não Encontrado: ") 
-  (setq SELOBJETO (entsel))))(command "area" "o" SELOBJETO) 
+  (setq SELOBJETO (entsel)) 
+  (if (NULL selOBJETO) 
+	(while (NULL SELOBJETO)
+		(princ "\nObjeto Não Encontrado: ") 
+		(setq SELOBJETO (entsel))
+	)
+  )
+  (command "area" "o" SELOBJETO) 
   (setq a (getvar "area"))
   (command "chprop" SELOBJETO "" "C" "1" "") 			
   (setq area_calculada (strcat (rtos a 2 2) " m²"))
@@ -1394,6 +1400,7 @@
   (princ)
   
 )
+
 
 ;salva o status
 (defun guarda_status ()
@@ -3453,7 +3460,6 @@
 	(princ)
 
 
-
 )
 
 (defun c:lcolunas ()
@@ -3537,11 +3543,28 @@
 
 (setq ENT1 (entget (entnext (entnext (cdr (assoc '-1 lista))))))
 ;Com isso pego o primeiro item dentro do bloco
+	
+)
 
-;(setq ENT2 (entget (entnext (cdr (assoc '-1 ENT1)))))
-;Com isso pego o segundo item dentro do bloco
-	
-	
-		
-	
+(defun c:LCobertura ()
+  (guarda_status)
+  (crl "021" 2) 
+  (setvar "clayer" "021")
+  (setvar "osmode" 0)
+  (setq SELOBJETO (ssget)) 
+  (if (NULL selOBJETO) 
+	(while (NULL SELOBJETO)
+		(princ "\nObjeto Selecione a linha: ") 
+		(setq SELOBJETO (ssget))
+	)
+  )
+    
+  (command "chprop" SELOBJETO "" "LA" "021" "") 			
+  (command "chprop" SELOBJETO "" "LT" "hidden" "") 			
+  (command "chprop" SELOBJETO "" "S" 0.05 "") 			
+    
+  
+  (devolve_status)
+  (princ)
+  
 )
