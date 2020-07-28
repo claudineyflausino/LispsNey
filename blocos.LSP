@@ -1697,7 +1697,6 @@
    (close open_file)
 )
 
-
 (defun c:pt (/)
 
   (command "_undo" "_begin")
@@ -1861,26 +1860,18 @@
   
   (setvar "clayer" layer_parede)
   (command "_line" "_non" p1 "_non" p2 "")
-  
   (command "_line" "_non" p3 "_non" p4 "")
-  
   (setq p5 (polar p1 dir2 (/ espessura 2)))
   (setq p6 (polar p3 dir2 (/ espessura 2)))
   
   (command "._trim" "f" "_non" p5 "non" p6 "" "" "f" "_non" pcortar3 "_non" pcortar4 "" "")
-
-  
   (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/porta1.dwg") "_non" pbloco largporta 1 "_non" pescala2 alt_porta_config tipo_porta_config larg_porta_config pcortar3)
-  
   (if (= cota_porta_config "1")
       (command "_attdia" "0" "_.insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/CotaPorta.dwg") "_non" pcortar3 "1" "1" 0 (rtos largporta 2 2) alt_porta_config tipo_porta_config "_attdia" "1")
   )  
-
-  (devolve_status)
+ (devolve_status)
   (prompt "\n Porta inserida com sucesso!")
-  
   (command "_undo" "_end")
-    
   (princ)
 
   
@@ -3522,19 +3513,12 @@
    (while (/= "SEQEND" (cdr (assoc 0 (setq proxima (entget (setq e1 (entnext e1)))))))
 		(if (= "ATTRIB" (cdr (assoc 0 proxima)))
 			(progn
-				
 				(if (= "QD" (cdr (assoc 2 proxima))) (setq qd (cdr (assoc 1 proxima))))
 				(if (= "CIRC" (cdr (assoc 2 proxima))) (setq circ (cdr (assoc 1 proxima))))
-				
 			)
-		
 		)
-   
-   
    )
-   
-
-)
+ )
 
 (defun c:t100()
 	

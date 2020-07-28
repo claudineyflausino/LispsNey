@@ -1,6 +1,6 @@
 Porta de Abrir Madeira
 0.10
-0.80
+0.90
 2.10
 1
 1
