@@ -234,6 +234,8 @@ ok_cancel;
 }
 
 
+
+
 samp5 : dialog {				//dialog name
     label = "Configuração Lisp" ;		//Da o nome da Janela
  
@@ -311,4 +313,83 @@ samp5 : dialog {				//dialog name
      }						//end row
 					
      }	
+	 
+	 
+fabi : dialog{
+	label= "Biblioteca 1.0 - ca.flausino@bol.com.br";
+	:boxed_column{
+		label= "Autor:";
+		:text{
+			label= "CLAUDINEY FLAUSINO";
+		}
+	:text{
+		label= "Blocos para Arquitetura";
+		key= "lbl_descricao";
+		}
+	:text{
+		label= "(043) 9 8805-7567 - whatsap";
+		}
+	}
+	spacer;
+	:boxed_row{
+		label= "SELECIONE O BLOCO :";
+		key= "lbl_titulo";
+		
+		:column{
+			:list_box{
+				width= 20 ;
+				key= "grupo";
+				alignment = top;
+			}
+			
+			:list_box{
+				width = 20;
+				key = "categoria";
+				alignment = top;
+			}
+		}
+
+		:list_box{
+			width= 20 ;
+			key= "bloco";
+			fixed_width = true;
+			alignment = top;
+		}
+
+		:image{
+			height = 10;
+			aspect_ratio= 1.5 ;
+			key= "img1";
+			fixed_height = true;
+			alignment= top;
+		}
+		
+		:column{
+			:image{
+				height = 5;
+				aspect_ratio= 1.5 ;
+				key= "img2";
+				fixed_height = true;
+				alignment= top;
+			}
+			:image{
+				height = 5;
+				aspect_ratio= 1.5 ;
+				key= "img3";
+				fixed_height = true;
+				alignment= top;
+			}
+			:image{
+				height = 5;
+				aspect_ratio= 1.5 ;
+				key= "img4";
+				fixed_height = true;
+				alignment= top;
+			}
+		}
+		
+	}
+	spacer ;
+ok_cancel ;
+}
 

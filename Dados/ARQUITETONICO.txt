@@ -1,0 +1,5 @@
+Planta Baixa
+Banheiro
+Cozinha
+Quartos
+Sala

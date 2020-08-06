@@ -3530,25 +3530,93 @@
 	
 )
 
-(defun c:LCobertura ()
-  (guarda_status)
-  (crl "021" 2) 
-  (setvar "clayer" "021")
-  (setvar "osmode" 0)
-  (setq SELOBJETO (ssget)) 
-  (if (NULL selOBJETO) 
-	(while (NULL SELOBJETO)
-		(princ "\nObjeto Selecione a linha: ") 
-		(setq SELOBJETO (ssget))
+
+;L1 - Parede
+;L2 - Linhas finas
+;L3 - linha pontilhada
+;L4 - Linha 025
+
+
+
+(defun c:L1 ()
+	(guarda_status)
+	(crl "05" 5) 
+	(setvar "clayer" "05")
+	(setvar "osmode" 0)
+	(setq SELOBJETO (ssget)) 
+	(if (NULL selOBJETO) 
+		(while (NULL SELOBJETO)
+			(princ "\nObjeto Selecione a linha: ") 
+			(setq SELOBJETO (ssget))
+		)
 	)
-  )
-    
-  (command "chprop" SELOBJETO "" "LA" "021" "") 			
-  (command "chprop" SELOBJETO "" "LT" "hidden" "") 			
-  (command "chprop" SELOBJETO "" "S" 0.05 "") 			
-    
+	(command "chprop" SELOBJETO "" "LA" "05" "") 			
+  (devolve_status)
+  (princ)
+  
+)
+
+(defun c:L2 ()
+	(guarda_status)
+	(crl "021" 2) 
+	(setvar "clayer" "021")
+	(setvar "osmode" 0)
+	(setq SELOBJETO (ssget)) 
+	(if (NULL selOBJETO) 
+		(while (NULL SELOBJETO)
+			(princ "\nObjeto Selecione a linha: ") 
+			(setq SELOBJETO (ssget))
+		)
+	)
+	(command "chprop" SELOBJETO "" "LA" "021" "") 			
+  (devolve_status)
+  (princ)
+  
+)
+
+(defun c:L3 ()
+	(guarda_status)
+	(crl "021" 1) 
+	(setvar "clayer" "021")
+	(setvar "osmode" 0)
+	(setq SELOBJETO (ssget)) 
+	(if (NULL selOBJETO) 
+		(while (NULL SELOBJETO)
+			(princ "\nObjeto Selecione a linha: ") 
+			(setq SELOBJETO (ssget))
+		)
+	)
+   
+	(setq sc (getreal "/n Digite a escala do pontilhado"))
+   
+	(command "chprop" SELOBJETO "" "LA" "021" "") 			
+	(command "chprop" SELOBJETO "" "LT" "hidden" "") 			
+	(command "chprop" SELOBJETO "" "S" sc "") 			
+		
+	(if (null sc)
+		(setq sc 0.5)
+	)	 	
   
   (devolve_status)
   (princ)
   
 )
+
+(defun c:L4 ()
+	(guarda_status)
+	(crl "025" 2) 
+	(setvar "clayer" "025")
+	(setvar "osmode" 0)
+	(setq SELOBJETO (ssget)) 
+	(if (NULL selOBJETO) 
+		(while (NULL SELOBJETO)
+			(princ "\nObjeto Selecione a linha: ") 
+			(setq SELOBJETO (ssget))
+		)
+	)
+	(command "chprop" SELOBJETO "" "LA" "025" "") 			
+  (devolve_status)
+  (princ)
+  
+)
+
