@@ -334,7 +334,7 @@
  ;configurações gerais lispNey##############################################################################
 
 
-(defun fabr(grupo lista lista_blocos nome_biblioteca / ed dcl_id) 
+(defun fabr(grupo nome_biblioteca / ed dcl_id) 
 	(setq x 0)
 	(setq	y 0)
 	(setq nome_bloco nil)
@@ -353,24 +353,12 @@
 	(set_tile "grupo" grupo_selecionado) 
     (action_tile "grupo" "(setq grupo_selecionado $value)(listar_categorias)")
 
-
-	(start_list "categoria")
-	(mapcar 'add_list categoria0) 
-	(end_list)
 	
 	(if (= nil categoria_selecionado) (setq categoria_selecionado "0"))
 	(set_tile "categoria" categoria_selecionado) 
     (action_tile "categoria" "(setq categoria_selecionado $value)(listar_blocos)")  
-  
-	(start_list "bloco")
-	(mapcar 'add_list lista) 
-	(end_list)
 
-	(if (= nil bloco_selecionado) (setq bloco_selecionado "0"))
-	(set_tile "bloco" bloco_selecionado) 
-	(action_tile "bloco" "(setq bloco_selecionado $value)(mostra_slide)")
-	
-	(listar_blocos)
+	(action_tile "bloco" "(mostra_slide)")
 	
 	(start_image "img1")
 	(setq x (dimx_tile "img1"))
@@ -387,42 +375,43 @@
 
 (defun listar_categorias()
 	(start_list "categoria")
-	(if (= "0" grupo_selecionado) (mapcar 'add_list categoria0) )
-	(if (= "1" grupo_selecionado) (mapcar 'add_list categoria1) )
-	(if (= "2" grupo_selecionado) (mapcar 'add_list categoria2) )
-	(if (= "3" grupo_selecionado) (mapcar 'add_list categoria3) )
-	(if (= "4" grupo_selecionado) (mapcar 'add_list categoria4) )
-	(if (= "5" grupo_selecionado) (mapcar 'add_list categoria5) )
-	(if (= "6" grupo_selecionado) (mapcar 'add_list categoria6) )
-	(if (= "7" grupo_selecionado) (mapcar 'add_list categoria7) )
-	(if (= "8" grupo_selecionado) (mapcar 'add_list categoria8) )
-	(if (= "9" grupo_selecionado) (mapcar 'add_list categoria9) )
-	(if (= "10" grupo_selecionado) (mapcar 'add_list categoria10) )
-	(end_list) 
-	(set_tile "categoria" grupo_selecionado) 	
+
+		(setq txtFile (open (findfile (strcat path "Dados/" (nth (atoi grupo_selecionado) grupo) ".txt")) "r"))
+		(setq lista '())
+		(while (/= (setq linha (read-line txtFile)) nil)
+			(setq lista (cons linha lista))
+			(setq categoria (reverse lista))
+		)
+		(close txtFile)
+
+		(mapcar 'add_list categoria)
+	(end_list)
 )
 
 
 (defun listar_blocos()
 	(start_list "bloco")
-	(if (= "0" categoria_selecionado) (mapcar 'add_list lista_blocos0) )
-	(if (= "1" categoria_selecionado) (mapcar 'add_list lista_blocos1) )
-	(if (= "2" categoria_selecionado) (mapcar 'add_list lista_blocos2) )
-	(if (= "3" categoria_selecionado) (mapcar 'add_list lista_blocos3) )
-	(if (= "4" categoria_selecionado) (mapcar 'add_list lista_blocos4) )
-	(if (= "5" categoria_selecionado) (mapcar 'add_list lista_blocos5) )
-	(if (= "6" categoria_selecionado) (mapcar 'add_list lista_blocos6) )
-	(if (= "7" categoria_selecionado) (mapcar 'add_list lista_blocos7) )
-	(if (= "8" categoria_selecionado) (mapcar 'add_list lista_blocos8) )
-	(if (= "9" categoria_selecionado) (mapcar 'add_list lista_blocos9) )
-	(if (= "10" categoria_selecionado) (mapcar 'add_list lista_blocos10) )
-	(end_list) 
-	(set_tile "bloco" bloco_selecionado) 	
-)  
+		
+		(setq catetoria_selecionado "0")
+		
+		(setq txtCategoria (open (findfile (strcat path "Dados/" (nth (atoi categoria_selecionado) categoria) ".txt")) "r"))
+		(setq list_categoria '())
+		(while (/= (setq linha (read-line txtCategoria)) nil)
+			(setq list_categoria (cons linha list_categoria))
+			(setq blocos (reverse list_categoria))
+		)
+		(close txtCategoria)
+		
+		
+		(mapcar 'add_list blocos)
+	(end_list)
+)
+
+ 
   
 (defun mostra_slide() 
   (setq pos (atoi (get_tile "bloco")))
-  (setq nome_bloco (nth pos lista_blocos))
+  (setq nome_bloco (nth pos blocos))
   (start_image "img1")
   (setq x (dimx_tile "img1"))
   (setq y (dimy_tile "img1"))
@@ -434,8 +423,10 @@
 (defun insere(path nome_bloco escala)
   (setq fator_cor (* (getvar "userr1") escala))
   (if (/= fator_cor 0.0)
-    (command "_INSERT" (strcat path nome_bloco ".dwg") pause pause pause pause)
-    (command "_INSERT" (strcat path nome_bloco ".dwg") pause pause pause pause)
+	
+    (command "_INSERT" (strcat path "Blocos/Arquitetonico/PlantaBaixa/" nome_bloco) pause pause pause pause "")
+	(command "_INSERT" (strcat path "Blocos/Arquitetonico/PlantaBaixa/" nome_bloco) pause pause pause pause "")
+	
   )
   (princ)
 )
@@ -453,45 +444,8 @@
 				"ESTRUTURAL"
 				"TELEFONIA"
 				))
-  (setq categoria0 '(	"Planta Baixa"
-						"Cozinha"
-						"Sala"
-						"Quarto"
-						"Banheiro"
-						"Lavanderia"
-						"Vegetação"
-						"Pessoas"
-						"Cortes"
-						"Fachadas"
-					))
-  
-  (setq categoria1 '("Blocos"))
-  (setq categoria2 '("Blocos"))
-  (setq categoria3 '("Blocos"))
-  (setq categoria4 '("Agua Fria" "Esgoto" "Cotas"))
-  (setq categoria5 '("Blocos"))
-  
-  (setq lista_blocos0 '( "Corte"
-						"CotaJanela"
-						"CotaNivelPlantaBaixa"
-						"Janela"
-						"JH"
-						"JV"
-						"LayersCotasPadrao"
-						"Linear"
-						"LinhaCorte"))
-
-  (setq lista_blocos1 '( "Bide"
-						"Chuveiro"
-						"Hidro"
-						"Lav_02"
-						"Vaso"
-						"Pia"
-						"VasoFrente"
-						"VasoLado"
-						))						
 						
-  (fabr grupo categoria0 lista_blocos0 nome_biblioteca)
+  (fabr grupo nome_biblioteca)
   (if (= cx_bloco 1)
     (insere path nome_bloco escala)
   )
@@ -525,20 +479,44 @@
 )
 ;***FIM_cozinha
 
-(defun c:testea ()
-  (setq open_file (open (strcat path "Dados/ARQUITETONICO.txt") "r")
+(defun c:nss()
+	(setq txtFile (open (findfile (strcat path "Dados/ARQUITETONICO.txt")) "r"))
+	(setq lista '())
+	(while (/= (setq linha (read-line txtFile)) nil)
+		(setq lista (cons linha lista))
+		(setq lista2 (reverse lista));volta a lista na posição inicial
+	)
+	(close txtFile)
+)
 
-(setq lista '("ARQUITETONICO"))
-	
-  (while (setq lay (read-line open_file))
-		
-		
-    
-  )
 
-  )
-  (close open_file)
-) 
+(defun c:mss (/ parse txtFile txtList pt ins)
+
+	(vl-load-com) ;;necessário somente com funções vlax-xxx, mas mantive
+	(setq txtFile (open (findfile (strcat path "Dados/ARQUITETONICO.txt")) "r"));;o caminho do seu arquivo .txt aqui
+	(setq txtList '());cria uma lista vazia - pode ser (setq txtList nil)
+	(setq txtList (read-line txtFile));lê a primeira linha do arquivo .txt
+	(if (/= txtList nil);se tem algo escrito
+		(progn
+			(setq txtList (list (parse txtList ",")));divide essa linha em partes separadas, tendo como base o separador, no caso a virgula
+			(while (/= (setq txtline (read-line txtFile)) nil);continua lendo até que a leitura resulte nil
+			(setq txtList (cons (parse txtline ",") txtList));adiciona as partes separadas numa lista
+			)
+			(close txtFile);após a leitura, fecha o arquivo .txt
+			(setq txtList (reverse txtList));;inverte a lista
+			(foreach pt txtList ;;para cada elemento da lista
+		
+			
+
+
+			)
+		)
+		(alert "\n Failed!");nesse caso, se não tem nada escrito na primeira linha, dá erro
+	)
+	(if (/= txtList nil) (princ "\n Done!"))
+(princ)
+
+)
 
 
 
