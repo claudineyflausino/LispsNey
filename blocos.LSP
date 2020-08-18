@@ -177,23 +177,17 @@
 
 (defun c:Anot (/)
   (guarda_status)	
-  
   (crl "021" 1)
   (setvar "clayer" "021")
-  
   (setq p1 (getpoint "\n Selecione o ponto da Seta"))
   (setq p2 (getpoint p1 "\n Selecione o ponto de inserção do Texto"))
-  
+  (setq p3 (polar p2 0 0.30))
   (command "_line" "non" p1 "non" p2 "")
-  
   (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/Seta.dwg") "non" p1 1 1 "non" p2 "")
-  
-  (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/Anotacao.dwg") "non" p2 1 1 0 "._explode" "l")
-  
+  (command "text" "j" "c" "non" p2 0.15 0 "TEXTO")
   (command "_textedit" "l" "")
-  
+  (command "_trim" "" "f" "non" p2 "non" p3 "" "")
   (devolve_status)
-  
   (princ)
 )
 
