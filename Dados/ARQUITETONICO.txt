@@ -1,5 +1,11 @@
-Planta Baixa
+PlantaBaixa
 Banheiro
+Cortes
 Cozinha
-Quartos
+Fachadas
+Quarto
 Sala
+Lavanderia
+Pessoas
+Vegetacao
+Veiculos

@@ -348,12 +348,12 @@
 ;AREA SERVIÇO
 
 (defun c:Tanque (/)
-  (command ".insert" (strcat path "Blocos/Arquitetonico/Servico/Tanque.dwg") pause 1 1 pause)
+  (command ".insert" (strcat path "Blocos/Arquitetonico/Lavanderia/Tanque.dwg") pause 1 1 pause)
   (princ)
 )
 
 (defun c:MaquinaLavar (/)
-  (command ".insert" (strcat path "Blocos/Arquitetonico/Servico/MaquinaLavar.dwg") pause 1 1 pause)
+  (command ".insert" (strcat path "Blocos/Arquitetonico/Lavanderia/MaquinaLavar.dwg") pause 1 1 pause)
   (princ)
 )
 
