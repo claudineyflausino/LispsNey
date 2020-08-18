@@ -175,6 +175,28 @@
   (princ)
 )
 
+(defun c:Anot (/)
+  (guarda_status)	
+  
+  (crl "021" 1)
+  (setvar "clayer" "021")
+  
+  (setq p1 (getpoint "\n Selecione o ponto da Seta"))
+  (setq p2 (getpoint p1 "\n Selecione o ponto de inserção do Texto"))
+  
+  (command "_line" "non" p1 "non" p2 "")
+  
+  (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/Seta.dwg") "non" p1 1 1 "non" p2 "")
+  
+  (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/Anotacao.dwg") "non" p2 1 1 0 "._explode" "l")
+  
+  (command "_textedit" "l" "")
+  
+  (devolve_status)
+  
+  (princ)
+)
+
 
 (defun c:NomeDesenho (/)
   (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/NomeDesenho.dwg") pause 1 1 0 "Escala 1:75" "PLANTA BAIXA")
@@ -417,83 +439,60 @@
   (princ)
 )
 
-(defun c:vb()
-
-(setq contador (getint "\n Sequencia inicial: <1> "))
-(if (= nil contador) (setq contador 1))
-
-(setq largura (getreal "\n Largura da viga: <0.15> "))
-(if (= nil largura) (setq largura 0.15))
-
-(setq altura (getreal "\n Altura da viga: <0.30> "))
-(if (= nil altura) (setq altura 0.30))
-
-
-
-(while 
-	(guarda_status)
-	(setvar "osmode" 1)
-	(setq p1 (getpoint "\n Selecione o ponto inicial da Viga: "))
-	(setq p2 (getpoint p1 "\n Selecione o ponto final da Viga: "))
-	
-	
-	
-	(setq pcota (polar p1 (angle p1 p2) (/ (distance p1 p2) 2)))
-	
-	
-	
-	(setvar "osmode" 128)
-	
-	(setq p3 (polar pcota (- (angle p1 p2) (/ pi 2)) largura))
-	
-	(setq comprimento (distance p1 p2))
-    (setq angulo (- (* (angle pcota p3) (/ 180 pi)) 90))	
-	
-	(setq angulo2 angulo)
-	(if (and (> angulo 90) (< angulo 270))
-		(setq angulo2 (+ angulo 180))
+(defun c:vb1()
+	(setq largura (getreal "\n Largura da viga: <0.15> "))
+	(if (= nil largura) (setq largura 0.15))
+	(setq altura (getreal "\n Altura da viga: <0.30> "))
+	(if (= nil altura) (setq altura 0.30))
+	(while 
+		(guarda_status)
+		(setvar "osmode" 1)
+		(setq p1 (getpoint "\n Selecione o ponto inicial da Viga: "))
+		(setq p2 (getpoint p1 "\n Selecione o ponto final da Viga: "))
+		(setq pcota (polar p1 (angle p1 p2) (/ (distance p1 p2) 2)))
+		(setvar "osmode" 128)
+		(setq p3 (polar pcota (- (angle p1 p2) (/ pi 2)) largura))
+		(setq comprimento (distance p1 p2))
+		(setq angulo (- (* (angle pcota p3) (/ 180 pi)) 90))	
+		(setq angulo2 angulo)
+		(if (and (> angulo 90) (< angulo 270))
+			(setq angulo2 (+ angulo 180))
+		)
+		(if (= angulo -90.0)
+			(setq angulo2 90)
+		)
+		(command "_attdia" "0" ".insert" (strcat path "Blocos/Estrutural/VigaBaldrame.dwg") "_non" pcota 1 1 angulo2 "VB1" (rtos comprimento 2 2) (rtos largura 2 2) (rtos altura 2 2) "5/16" "4" "4.2mm" "0.25" "")
+		(princ)
+		(devolve_status)
 	)
-	(if (= angulo -90.0)
-		(setq angulo2 90)
-	)
-
-	(command "_attdia" "0" ".insert" (strcat path "Blocos/Estrutural/VigaBaldrame.dwg") "_non" pcota 1 1 angulo2 (strcat "VB" (rtos contador 2 0)) (rtos comprimento 2 2) (rtos largura 2 2) (rtos altura 2 2) "5/16" "4" "4.2mm" "0.25" "")
-	(princ)
-
-	(devolve_status)
-
-	(setq contador (+ contador 1))
 )
 
-)
-
-(defun c:vr()
-
-;(setq contador (getint "\n Numero inicial"))
-
-(if (= nil contador) (setq contador 0))
-	(guarda_status)
-	(setvar "osmode" 1)
-	(setq p1 (getpoint "\n Selecione o ponto inicial da Viga "))
-	(setq p2 (getpoint p1 "\n Selecione o ponto final da Viga "))
-	(setq pcota (polar p1 (angle p1 p2) (/ (distance p1 p2) 2)))
-	(setvar "osmode" 128)
-	(setq p3 (getpoint pcota "\n Selecione o outro lado da parede "))
-	(setq largura (distance pcota p3))
-	(setq comprimento (distance p1 p2))
-	(setq angulo (- (* (angle pcota p3) (/ 180 pi)) 90))
-	(setq angulo2 angulo)
-	(if (and (> angulo 90) (< angulo 270))
-		(setq angulo2 (+ angulo 180))
+(defun c:vr1()
+	(setq largura (getreal "\n Largura da viga: <0.15> "))
+	(if (= nil largura) (setq largura 0.15))
+	(setq altura (getreal "\n Altura da viga: <0.30> "))
+	(if (= nil altura) (setq altura 0.30))
+	(while 
+		(guarda_status)
+		(setvar "osmode" 1)
+		(setq p1 (getpoint "\n Selecione o ponto inicial da Viga: "))
+		(setq p2 (getpoint p1 "\n Selecione o ponto final da Viga: "))
+		(setq pcota (polar p1 (angle p1 p2) (/ (distance p1 p2) 2)))
+		(setvar "osmode" 128)
+		(setq p3 (polar pcota (- (angle p1 p2) (/ pi 2)) largura))
+		(setq comprimento (distance p1 p2))
+		(setq angulo (- (* (angle pcota p3) (/ 180 pi)) 90))	
+		(setq angulo2 angulo)
+		(if (and (> angulo 90) (< angulo 270))
+			(setq angulo2 (+ angulo 180))
+		)
+		(if (= angulo -90.0)
+			(setq angulo2 90)
+		)
+		(command "_attdia" "0" ".insert" (strcat path "Blocos/Estrutural/VigaRespaldo.dwg") "_non" pcota 1 1 angulo2 "VR1" (rtos comprimento 2 2) (rtos largura 2 2) (rtos altura 2 2) "5/16" "4" "4.2mm" "0.25" "")
+		(princ)
+		(devolve_status)
 	)
-	(if (= angulo -90.0)
-		(setq angulo2 90)
-	)
-	(command "_attdia" "0" ".insert" (strcat path "Blocos/Estrutural/VigaRespaldo.dwg") "_non" pause 1 1 angulo2 (strcat "VR" (rtos contador 2 0)) (rtos comprimento 2 2) (rtos largura 2 2) "0.30" "5/16" "4" "4.2mm" "0.25" "")
-	(princ)
-	(devolve_status)
-	(setq contador (+ contador 1))
-
 )
 
 
@@ -2992,6 +2991,8 @@
 
 
 )
+
+;COMANDO NAO ACABADO ESTRUTURAL
 (defun c:blocos ()
 
    (setq p1 (getpoint "\n Especifique o ponto para inserir a legenda: "))
@@ -3056,8 +3057,7 @@
 
 )
 
-(defun c:CriaEstacas ()
-	;Seleciona todos blocos
+(defun c:CriaEstac ()
 	(prompt "\n Selecione as estacas: ")
 	(setq sel (ssget '((0 . "INSERT") (2 . "Estaca"))))
 	;cria um contador para o loop
@@ -3452,6 +3452,48 @@
 
 
 )
+
+(defun c:vbColunas()
+
+    (prompt "\n Selecione as Colunas para gerar as Vigas Baldrames")
+	(setq sel (ssget '((0 . "INSERT") (2 . "Coluna"))))
+
+	(if (> (sslength sel) 2) (alert "Selecione apenas duas colunas"))
+	
+	(if (> (sslength sel) 2) (exit))
+    
+	(setq nomebloco (ssname sel 1))
+	(setq p1 (cdr (assoc 10 (entget nomebloco))))
+	(setq largura1 (cdr (assoc 1 (entget (entnext (entnext nomebloco))))))
+
+	(setq nomebloco (ssname sel 0))
+	(setq p2 (cdr (assoc 10 (entget nomebloco))))
+	(setq largura2 (cdr (assoc 1 (entget (entnext (entnext nomebloco))))))
+	 	
+	(setq dir (angle p1 p2))
+	(setq dir2 (- dir (/ pi 2)))	
+	
+	(setq p3 (polar p1 dir (/ (distance p1 p2) 2)))
+	
+	(setq p4 (polar p3 dir2 (distof largura1)))
+	
+	(setq comprimento (distance p1 p2))
+    (setq angulo (- (* (angle p3 p4) (/ 180 pi)) 90))	
+	
+	(setq angulo2 angulo)
+	(if (and (> angulo 90) (< angulo 270))
+		(setq angulo2 (+ angulo 180))
+	)
+	(if (= angulo -90.0)
+		(setq angulo2 90)
+	)
+
+	(command "_attdia" "0" ".insert" (strcat path "Blocos/Estrutural/VigaBaldrame.dwg") "_non" p3 1 1 angulo2 "VB1" (rtos comprimento 2 2) "0.15" "0.30" "5/16" "4" "4.2mm" "0.25" "")
+	(princ)
+
+
+)
+
 
 (defun c:lcolunas ()
 	(guarda_status)

@@ -9,6 +9,7 @@
 (defun c:k ()
   (load (strcat path "Blocos.lsp"))
   (load (strcat path "ControleDialogos.lsp"))
+  (load (strcat path "Carrega_Lisps_Ney.LSP"))
   (load (strcat path "Eletrico.lsp"))
 )
 
