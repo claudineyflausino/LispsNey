@@ -60,6 +60,15 @@
   (princ)
 )
 
+(defun c:guiarebaixada (/)
+  (guarda_status)
+  (setvar "osmode" 567)
+  (command "._insert" (strcat path "Blocos/Arquitetonico/PlantaBaixa/GuiaRebaixada.dwg") pause 1 1 pause)
+  (command "._explode" "l" "")
+  (devolve_status)
+  (princ)
+)
+
 (defun c:nivelcorte (/)
   (guarda_status)
   (setvar "osmode" 567)
