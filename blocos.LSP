@@ -231,6 +231,11 @@
   (princ)
  )
 
+(defun c:PiaLado (/)
+  (command ".insert" (strcat path "Blocos/Arquitetonico/Banheiro/PiaLado.dwg") pause 1 1 pause)
+  (princ)
+ )
+
 
 (defun c:PIA2 (/)
   (command ".insert" (strcat path "Blocos/Arquitetonico/Banheiro/PIA2.dwg") pause 1 1 pause)
